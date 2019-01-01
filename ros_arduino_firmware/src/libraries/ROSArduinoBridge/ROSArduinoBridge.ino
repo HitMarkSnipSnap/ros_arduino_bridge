@@ -1,6 +1,6 @@
 /*********************************************************************
  *  ROSArduinoBridge
-jep 
+ 
     A set of simple serial commands to control a differential drive
     robot and receive back sensor and odometry data. Default 
     configuration assumes use of an Arduino Mega + Pololu motor
