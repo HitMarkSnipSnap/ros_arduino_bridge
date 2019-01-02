@@ -14,6 +14,17 @@
   #define RIGHT_ENC_PIN_B PC5  //pin A5
 #endif
 
+#ifdef LEONARDO_XOR_ENC_COUNTER
+  #define LEFT_ENC_PIN_A 10 //PB6
+  #define LEFT_ENC_PIN_B 11 //PB7
+  #define LEFT_ENC_XOR   3  //INT0
+  
+  #define RIGHT_ENC_PIN_A 8 //PB4
+  #define RIGHT_ENC_PIN_B 9 //PB5  
+  #define RIGHT_ENC_XOR   2 //INT1
+#endif
+
+
 #ifdef ROBOGAIA_3_AXIS
   #define chipSelectPin1 10
   #define chipSelectPin2 9
@@ -27,5 +38,3 @@ void initEncoders();
 long readEncoder(int i);
 void resetEncoder(int i);
 void resetEncoders();
-
-

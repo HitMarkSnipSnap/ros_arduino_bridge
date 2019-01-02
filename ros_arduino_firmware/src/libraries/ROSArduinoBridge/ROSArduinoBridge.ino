@@ -45,14 +45,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
-//#define USE_BASE      // Enable/disable the base controller code
+//We will be using BASE controller for Bradely Robot
+#define USE_BASE      // Enable/disable the base controller code
 
 //#define USE_IMU       // Enable/disable use of an IMU
 
 /* Define the motor controller and encoder library you are using */
 #ifdef USE_BASE
   /* The Pololu VNH5019 dual motor driver shield */
-  #define POLOLU_VNH5019
+  // Not using this for Bradley: 
+  // #define POLOLU_VNH5019
 
   /* The Pololu MC33926 dual motor driver shield */
   //#define POLOLU_MC33926
@@ -61,7 +63,9 @@
   //#define ADAFRUIT_MOTOR_SHIELD_V2
 
   /* The Ardunino Motor Shield R3 */
-  //#define ARDUINO_MOTOR_SHIELD_R3
+  //for Bradley, we can use this motor shield definition, but will change the PINOUT on our Leonardo
+  //  in moror_driver.h
+  #define ARDUINO_MOTOR_SHIELD_R3
   
   /* The brake uses digital pins 8 and 9 and is not compatible with the Robogaia 3-axis
   *  endcoder shield.  Cut the brake jumpers on the R3 motor shield if you want to use
@@ -73,18 +77,24 @@
   // #define NO_MOTOR_CONTROLLER
   
   /* The RoboGaia encoder shield */
-  #define ROBOGAIA
+  // Not using this for Bradely: 
+  // #define ROBOGAIA
   
   /* The RoboGaia 3-axis encoder shield */
   //#define ROBOGAIA_3_AXIS
   
   /* Encoders directly attached to Arduino board */
   //#define ARDUINO_ENC_COUNTER
+
+  //For Bradley robot, we will add a class for a 3 pin encoder (A, B, XOR AB)
+  #define LEONARDO_XOR_ENC_COUNTER
+
 #endif
 
 //#define USE_SERVOS  // Enable/disable use of old PWM servo support as defined in servos.h
 
-#define USE_SERVOS2  // Enable/disable use of new PWM servo support as defined in servos2.h
+// for bradley robot, we aren't using servo's yet 
+//#define USE_SERVOS2  // Enable/disable use of new PWM servo support as defined in servos2.h
 
 /* Include old servo support if required */
 #ifdef USE_SERVOS
