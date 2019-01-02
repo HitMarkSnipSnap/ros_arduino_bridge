@@ -274,11 +274,11 @@
     //DDRD &= ~(1<<LEFT_ENC_PIN_B);
     //DDRC &= ~(1<<RIGHT_ENC_PIN_A);
     //DDRC &= ~(1<<RIGHT_ENC_PIN_B);
-    pinMode(LEFT_ENC_PIN_A,  INPUT_PULLUP);
-    pinMode(LEFT_ENC_PIN_B,  INPUT_PULLUP);
+    pinMode(LEFT_ENC_PIN_A,  INPUT);
+    pinMode(LEFT_ENC_PIN_B,  INPUT);
     pinMode(LEFT_ENC_XOR,    INPUT);
-    pinMode(RIGHT_ENC_PIN_A, INPUT_PULLUP);
-    pinMode(RIGHT_ENC_PIN_B, INPUT_PULLUP);
+    pinMode(RIGHT_ENC_PIN_A, INPUT);
+    pinMode(RIGHT_ENC_PIN_B, INPUT);
     pinMode(RIGHT_ENC_XOR,   INPUT);
   
     // Enable pull up resistors
