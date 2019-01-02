@@ -13,13 +13,13 @@ void setMotorSpeeds(int leftSpeed, int rightSpeed);
 
 #ifdef ARDUINO_MOTOR_SHIELD_R3
 
-  #define LEFT_MOTOR_PIN_DIR    12
-  #define LEFT_MOTOR_PIN_BRAKE  9
-  #define LEFT_MOTOR_PIN_SPEED  3
+  #define LEFT_MOTOR_PIN_DIR    4 // original 12
+  #define LEFT_MOTOR_PIN_BRAKE  9 // not used for Bradley
+  #define LEFT_MOTOR_PIN_SPEED  5 // original 3
   
-  #define RIGHT_MOTOR_PIN_DIR   13
-  #define RIGHT_MOTOR_PIN_BRAKE 8
-  #define RIGHT_MOTOR_PIN_SPEED 11
+  #define RIGHT_MOTOR_PIN_DIR   7 // original 13
+  #define RIGHT_MOTOR_PIN_BRAKE 8 // not used for Bradley
+  #define RIGHT_MOTOR_PIN_SPEED 6 // original 11
 
 #endif
 
@@ -40,4 +40,3 @@ void setMotorSpeeds(int leftSpeed, int rightSpeed);
   Adafruit_DCMotor *myLeftMotor = AFMS.getMotor(LEFT_MOTOR_HEADER);
   Adafruit_DCMotor *myRightMotor = AFMS.getMotor(RIGHT_MOTOR_HEADER);
 #endif
-
