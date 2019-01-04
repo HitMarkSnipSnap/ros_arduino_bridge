@@ -103,6 +103,11 @@
 
     // Set up Channel B - RIGHT
     pinMode(RIGHT_MOTOR_PIN_DIR, OUTPUT); // Initiates Motor Channel B pin
+
+    // Turn on the Motor Controller Board   
+    pinMode(MOTOR_BOARD_POWER, OUTPUT); // Initiates Motor Channel B pin
+    digitalWrite(MOTOR_BOARD_POWER, HIGH);
+    
   }
 
   /* Wrap the drive motor set speed function */
@@ -158,4 +163,3 @@
 #endif
 
 #endif
-
