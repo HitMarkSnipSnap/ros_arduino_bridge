@@ -21,6 +21,8 @@ void setMotorSpeeds(int leftSpeed, int rightSpeed);
   #define RIGHT_MOTOR_PIN_BRAKE 8 // not used for Bradley
   #define RIGHT_MOTOR_PIN_SPEED 6 // original 11
 
+  #define MOTOR_BOARD_POWER     12 //NEW for Bradley Motor Driver Board
+
 #endif
 
 #ifdef ADAFRUIT_MOTOR_SHIELD_V2
