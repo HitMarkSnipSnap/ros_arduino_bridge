@@ -181,7 +181,7 @@ long arg2;
 
 /* Clear the current command parameters */
 void resetCommand() {
-  cmd = "\0";
+  cmd = NULL;
   memset(argv1, 0, sizeof(argv1));
   memset(argv2, 0, sizeof(argv2));
   arg1 = 0;
