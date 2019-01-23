@@ -1,0 +1,10 @@
+source /opt/ros/kinetic/setup.bash
+export ROSLISP_PACKAGE_DIRECTORIES=/home/ubuntu/catkin_ws/devel/share/common-lisp
+export ROS_PACKAGE_PATH=/home/ubuntu/catkin_ws/src:/opt/ros/kinetic/share
+cd `rospack find ros_arduino_firmware`/src/libraries/ROSArduinoBridge
+cd ..
+echo Brining ROS Arduino Bridge up to date with GIT
+git pull
+echo Copying Arduino IDE ROSArduinoBridge to GIT Repository
+cp -rp ~/Arduino/ROSArduinoBridge .
+

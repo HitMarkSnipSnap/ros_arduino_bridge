@@ -1,0 +1,11 @@
+source /opt/ros/kinetic/setup.bash
+export ROSLISP_PACKAGE_DIRECTORIES=/home/ubuntu/catkin_ws/devel/share/common-lisp
+export ROS_PACKAGE_PATH=/home/ubuntu/catkin_ws/src:/opt/ros/kinetic/share
+cd `rospack find ros_arduino_firmware`/src/libraries/ROSArduinoBridge
+echo updating local files from git
+git status
+git pull
+echo copying ROS arduino firmware to Arduino Sketch Directory
+cd ~
+cp -rp `rospack find ros_arduino_firmware`/src/libraries/ROSArduinoBridge ~/Arduino/
+
