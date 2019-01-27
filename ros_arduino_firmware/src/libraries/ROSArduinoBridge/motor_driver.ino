@@ -105,7 +105,7 @@
     pinMode(RIGHT_MOTOR_PIN_DIR, OUTPUT); // Initiates Motor Channel B pin
 
     // Turn on the Motor Controller Board   
-    pinMode(MOTOR_BOARD_POWER, OUTPUT); // Initiates Motor Channel B pin
+    pinMode(MOTOR_BOARD_POWER, OUTPUT); // Turns on the Motor Controller Board
     digitalWrite(MOTOR_BOARD_POWER, HIGH);
     
   }
@@ -121,7 +121,7 @@
         else digitalWrite(LEFT_MOTOR_PIN_BRAKE, LOW);
       #endif
 
-      analogWrite(LEFT_MOTOR_PIN_SPEED, spd);
+      analogWrite(LEFT_MOTOR_PIN_SPEED, abs(spd));
     }
     else {
       if (spd < 0) digitalWrite(RIGHT_MOTOR_PIN_DIR, LOW);
@@ -132,7 +132,7 @@
         else digitalWrite(RIGHT_MOTOR_PIN_BRAKE, LOW);
       #endif
       
-      analogWrite(RIGHT_MOTOR_PIN_SPEED, spd);
+      analogWrite(RIGHT_MOTOR_PIN_SPEED, abs(spd));
     }
   }
 
