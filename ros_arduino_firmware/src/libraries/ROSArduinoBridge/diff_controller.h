@@ -127,8 +127,12 @@ void updatePID() {
   /* Compute PID update for each motor */
   doPID(&rightPID);
   doPID(&leftPID);
-
+#ifdef DEBUG
+Serial.print("LM: ");
+Serial.print(leftPID.output);
+Serial.print(" RM: ");
+Serial.println(rightPID.output);
+#endif
   /* Set the motor speeds accordingly */
   setMotorSpeeds(leftPID.output, rightPID.output);
 }
-

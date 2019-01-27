@@ -50,6 +50,9 @@
 
 //#define USE_IMU       // Enable/disable use of an IMU
 
+/* Bradley DEBUG */
+//#define DEBUG //turns on debug messages, TURN THIS OFF IF RUNNING ROS
+
 /* Define the motor controller and encoder library you are using */
 #ifdef USE_BASE
   /* The Pololu VNH5019 dual motor driver shield */
@@ -86,14 +89,14 @@
   /* Encoders directly attached to Arduino board */
   //#define ARDUINO_ENC_COUNTER
 
-  //For Bradley robot, we will add a class for a 3 pin encoder (A, B, XOR AB)
+  /* For Bradley robot, we will add a class for a 3 pin encoder (A, B, XOR AB) */
   #define LEONARDO_XOR_ENC_COUNTER
 
 #endif
 
 //#define USE_SERVOS  // Enable/disable use of old PWM servo support as defined in servos.h
 
-// for bradley robot, we aren't using servo's yet 
+/* for bradley robot, we aren't using servo's yet */
 //#define USE_SERVOS2  // Enable/disable use of new PWM servo support as defined in servos2.h
 
 /* Include old servo support if required */
