@@ -42,6 +42,7 @@ class BaseController:
         self.odom_linear_scale_correction = rospy.get_param("~odom_linear_scale_correction", 1.0)
         self.odom_angular_scale_correction = rospy.get_param("~odom_angular_scale_correction", 1.0)
         self.use_imu_heading = rospy.get_param("~use_imu_heading", False)
+        self.use_android_joystick = rospy.get_param("~use_android_joystick", False)
         self.publish_odom_base_transform = rospy.get_param("~publish_odom_base_transform", True)
 
         self.stopped = False
@@ -101,7 +102,10 @@ class BaseController:
         self.last_cmd_vel = now
 
         # Subscriptions
-        rospy.Subscriber("cmd_vel", Twist, self.cmdVelCallback)
+        if self.use_android_joystick:
+            rospy.Subscriber("joy_teleop/cmd_vel", Twist, self.cmdJoyVelCallback)
+        else:
+            rospy.Subscriber("cmd_vel", Twist, self.cmdVelCallback)
 
         # Clear any old odometry info
         self.arduino.reset_encoders()
@@ -311,6 +315,28 @@ class BaseController:
             # Rotation about a point in space
             left = x - th * self.wheel_track  * self.gear_reduction / 2.0
             right = x + th * self.wheel_track  * self.gear_reduction / 2.0
+            
+        self.v_des_left = int(left * self.ticks_per_meter / self.arduino.PID_RATE)
+        self.v_des_right = int(right * self.ticks_per_meter / self.arduino.PID_RATE)
+        
+    def cmdJoyVelCallback(self, req):
+        # Handle velocity-based movement requests
+        self.last_cmd_vel = rospy.Time.now()
+        
+        x  = req.linear.x        # this is in percentage, -1 to 1 (-100%, 100%)
+        th = req.angular.z       # this is in percentage, -1 to 1 (-100% to 100%)
+
+        #if x == 0:
+        #    # Turn in place
+        #    right = th * self.wheel_track  * self.gear_reduction / 2.0
+        #    left = -right
+        #elif th == 0:
+        #    # Pure forward/backward motion
+        #    left = right = x
+        #else:
+            # Rotation about a point in space
+        left = x - th  # * self.wheel_track  * self.gear_reduction / 2.0
+        right = x + th # * self.wheel_track  * self.gear_reduction / 2.0
             
         self.v_des_left = int(left * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_right = int(right * self.ticks_per_meter / self.arduino.PID_RATE)
