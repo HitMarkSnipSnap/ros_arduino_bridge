@@ -104,9 +104,14 @@ class Sensor(object):
 
     def publish_message(self):
         # Flaky sensors can return None occasionally
-        if self.value is None:
-            return
-        
+        # Bradley : rospy.loginfo("Sensor Publish Message: self.value="+str(self.value))
+        # BRADLEY MOVE: These two lines commented out, an analog sensor never initializes off
+        # of NONE unless you can read it at least once, this piece of code prevents us from 
+        # EVER reading the message the first time and stepping off NONE.
+        #if self.value is None:
+        #    return
+       
+        # Bradley : rospy.loginfo("Sensor: "+str(self)+", value: "+str(self.value)) 
         # Override this method if necessary for particular sensor types
         if self.direction == "input":
             self.value = self.read_value()
@@ -124,6 +129,7 @@ class Sensor(object):
     def poll(self):
         now = rospy.Time.now()
         if now > self.t_next:
+            # Bradley : rospy.loginfo("poll called for sensor "+str(self))
             # Update read counters
             self.diagnostics.reads += 1
             self.diagnostics.total_reads += 1
@@ -147,7 +153,8 @@ class Sensor(object):
 class AnalogSensor(Sensor):
     def __init__(self, *args, **kwargs):
         super(AnalogSensor, self).__init__(*args, **kwargs)
-                
+        # Bradley : rospy.loginfo("AnalogSensor is being initialized");
+      
         self.message_type = MessageType.ANALOG
         
         self.msg = Analog()
@@ -157,6 +164,7 @@ class AnalogSensor(Sensor):
         self.pub = rospy.Publisher("~sensor/" + self.name, Analog, queue_size=5)
 
     def create_services(self):
+        # Bradley : rospy.loginfo("AnalogSensor Service created")
         if self.direction == "output":
             self.device.analog_pin_mode(self.pin, OUTPUT)
             rospy.Service('~' + self.name + '/write', AnalogSensorWrite, self.sensor_write_handler)
@@ -165,6 +173,7 @@ class AnalogSensor(Sensor):
             rospy.Service('~' + self.name + '/read', AnalogSensorRead, self.sensor_read_handler)
 
     def read_value(self):
+        # Bradely : rospy.loginfo("AnalogSensor.analog_read(" +str(self.pin)+") = " +str(self.device.analog_read(self.pin)))
         return self.scale * (self.device.analog_read(self.pin) - self.offset)
 
     def write_value(self, value):
@@ -172,6 +181,7 @@ class AnalogSensor(Sensor):
 
     def sensor_read_handler(self, req=None):
         self.value = self.read_value()
+        # Bradley : rospy.loginfo("AnalogSensor Read Handler: "+str(self.value))
         return AnalogSensorReadResponse(self.value)
 
     def sensor_write_handler(self, req):

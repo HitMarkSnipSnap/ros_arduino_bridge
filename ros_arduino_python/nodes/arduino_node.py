@@ -321,6 +321,7 @@ class ArduinoROS():
             for sensor in self.device.sensors:
                 if sensor.rate != 0:
                     with mutex:
+                        # Bradley : rospy.loginfo("Polling Sensor: "+str(sensor))
                         sensor.poll()
                                      
             # Poll the base controller
