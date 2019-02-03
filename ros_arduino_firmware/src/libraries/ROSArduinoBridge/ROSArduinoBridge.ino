@@ -158,7 +158,8 @@
 
   // The only IMU currently supported is the Adafruit 9-DOF IMU
   /* This is the OLDER Adafruit 9-DOF IMU Breakout - L3GD20H + LSM303 that is now DISCONTINUED */
-  #define ADAFRUIT_9DOF_L3GD20H_LSM303
+  //#define ADAFRUIT_9DOF_L3GD20H_LSM303
+  #define ADAFRUIT_9DOF_FXOS8700_FXAS21002
 
 #endif
 
