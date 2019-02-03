@@ -12,6 +12,7 @@
 #define READ_ENCODERS  'e'
 #define READ_IMU       'i'
 #define CONFIG_SERVO   'j'
+#define READ_MOTORS    'l'
 #define MOTOR_SPEEDS   'm'
 #define PING           'p'
 #define RESET_ENCODERS 'r'
@@ -27,5 +28,3 @@
 #define RIGHT           1
 
 #endif
-
-

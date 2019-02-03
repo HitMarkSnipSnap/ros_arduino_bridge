@@ -48,7 +48,7 @@
 //We will be using BASE controller for Bradely Robot
 #define USE_BASE      // Enable/disable the base controller code
 
-//#define USE_IMU       // Enable/disable use of an IMU
+#define USE_IMU       // Enable/disable use of an IMU
 
 /* Bradley DEBUG */
 //#define DEBUG //turns on debug messages, TURN THIS OFF IF RUNNING ROS
@@ -319,6 +319,12 @@ int runCommand() {
     Serial.print(F(" "));
     Serial.println(readEncoder(RIGHT));
     break;
+   case READ_MOTORS:
+    motor_data = readMotorSettings();
+    Serial.print(motor_data.lm);
+    Serial.print(F(" "));
+    Serial.println(motor_data.rm);
+    break;   
    case RESET_ENCODERS:
     resetEncoders();
     resetPID();

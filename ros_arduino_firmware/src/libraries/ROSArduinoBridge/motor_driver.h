@@ -2,6 +2,14 @@
    Motor driver function definitions - by James Nugen
    *************************************************************/
 
+typedef struct motorData_s
+    {
+      int lm = 0;
+      int rm = 0;
+    } motorData;
+
+motorData readMotorSettings();
+motorData motor_data;
 void initMotorController();
 void setMotorSpeed(int i, int spd);
 void setMotorSpeeds(int leftSpeed, int rightSpeed);
