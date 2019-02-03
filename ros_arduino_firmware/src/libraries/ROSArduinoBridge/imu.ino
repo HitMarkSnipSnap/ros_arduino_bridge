@@ -1,6 +1,7 @@
 #ifdef USE_IMU
 
-  #ifdef ADAFRUIT_9DOF
+  #ifdef ADAFRUIT_9DOF_L3GD20H_LSM303
+  /* This is the OLDER Adafruit 9-DOF IMU Breakout - L3GD20H + LSM303 that is now DISCONTINUED */
   
     #include <Wire.h>
     #include <Adafruit_Sensor.h>

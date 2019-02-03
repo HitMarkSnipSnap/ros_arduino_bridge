@@ -48,7 +48,7 @@
 //We will be using BASE controller for Bradely Robot
 #define USE_BASE      // Enable/disable the base controller code
 
-#define USE_IMU       // Enable/disable use of an IMU
+//#define USE_IMU       // Enable/disable use of an IMU
 
 /* Bradley DEBUG */
 //#define DEBUG //turns on debug messages, TURN THIS OFF IF RUNNING ROS
@@ -157,7 +157,8 @@
   #include "imu.h"
 
   // The only IMU currently supported is the Adafruit 9-DOF IMU
-  #define ADAFRUIT_9DOF
+  /* This is the OLDER Adafruit 9-DOF IMU Breakout - L3GD20H + LSM303 that is now DISCONTINUED */
+  #define ADAFRUIT_9DOF_L3GD20H_LSM303
 
 #endif
 
