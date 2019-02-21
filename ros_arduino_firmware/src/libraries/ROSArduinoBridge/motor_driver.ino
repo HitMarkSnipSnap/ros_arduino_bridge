@@ -98,6 +98,10 @@
   /* Wrap the motor driver initialization */
    
   void initMotorController() {
+    #ifdef DEBUG
+      Serial.println("HELLO, start of initMotorController() ");
+    #endif
+
     /* If the brake function is enabled */
     #ifdef USE_ARDUINO_MOTOR_SHIELD_R3_BRAKE
       pinMode(LEFT_MOTOR_PIN_BRAKE, OUTPUT);   // Initiates Brake Channel A pin

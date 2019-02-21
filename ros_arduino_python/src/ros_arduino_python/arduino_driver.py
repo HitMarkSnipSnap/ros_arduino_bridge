@@ -226,6 +226,16 @@ class Arduino:
         else:
             return map(int, values)
 
+    def get_motor_outputs(self):
+        ''' Read the current motor output
+        '''
+        values = self.execute_array('l')
+
+        if len(values) != 2:
+            return None
+        else:
+            return map(int, values)
+
     def reset_encoders(self):
         ''' Reset the encoder counts to 0
         '''

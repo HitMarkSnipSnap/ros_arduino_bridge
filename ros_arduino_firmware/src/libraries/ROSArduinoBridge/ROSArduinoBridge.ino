@@ -48,7 +48,7 @@
 //We will be using BASE controller for Bradely Robot
 #define USE_BASE      // Enable/disable the base controller code
 
-//#define USE_IMU       // Enable/disable use of an IMU
+#define USE_IMU       // Enable/disable use of an IMU
 
 /* Bradley DEBUG */
 //#define DEBUG //turns on debug messages, TURN THIS OFF IF RUNNING ROS
@@ -367,6 +367,10 @@ int runCommand() {
 /* Setup function--runs once at startup. */
 void setup() {
   Serial.begin(BAUDRATE);
+#ifdef DEBUG
+while (!Serial) ;
+Serial.println("HELLO, start of SETUP() ");
+#endif
 
   // Initialize the motor controller if used */
   #ifdef USE_BASE
@@ -389,6 +393,9 @@ void setup() {
           stepDelay[i],
           servoInitPosition[i]);
     }
+  #endif
+  #ifdef DEBUG
+    Serial.println("HELLO, end of SETUP() ");
   #endif
 }
 

@@ -23,7 +23,8 @@ base_frame: base_link
 use_imu_heading: False
 
 # Are using Android Control for Joystic?
-use_android_joystick: True
+#use_android_joystick: True
+use_android_joystick: False
 
 # Publish the odom->base_link transform?
 publish_odom_base_transform: True
@@ -36,11 +37,11 @@ gear_reduction: 1.0
 #motors_reversed: True
 
 # === PID parameters
-Kp: 10
-Kd: 12
-Ki: 0
+Kp: 30
+Kd: 12.5
+Ki: 0.95
 Ko: 50
-accel_limit: 1.0
+accel_limit: 10.0
 
 # == Odometry calibration correction factors
 odom_linear_scale_correction: 1.0

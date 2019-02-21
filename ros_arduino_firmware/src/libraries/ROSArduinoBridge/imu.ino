@@ -115,8 +115,17 @@
   
     void initIMU()
     {
+      #ifdef DEBUG
+         Serial.println("HELLO, start of initIMU() ");
+      #endif
       accelmag.begin(ACCEL_RANGE_4G);
+      #ifdef DEBUG
+         Serial.println("HELLO, start of gyro() ");
+      #endif
       gyro.begin();
+      #ifdef DEBUG
+         Serial.println("HELLO, end of initIMU() ");
+      #endif
     }
   
     imuData readIMU() {
