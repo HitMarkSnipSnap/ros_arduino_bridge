@@ -96,14 +96,14 @@
     // below.
 
     // Offsets applied to raw x/y/z mag values
-    float mag_offsets[3]            = { 0.93F, -7.47F, -35.23F };
+    float mag_offsets[3]            = { 53.66F, 63.63F, 149.22F };
 
     // Soft iron error compensation matrix
-    float mag_softiron_matrix[3][3] = { {  0.943,  0.011,  0.020 },
-                                        {  0.022,  0.918, -0.008 },
-                                        {  0.020, -0.008,  1.156 } };
+    float mag_softiron_matrix[3][3] = { {  0.971, -0.026, -0.001 },
+                                        { -0.026,  1.002, -0.012 },
+                                        { -0.001, -0.012,  1.029 } };
 
-    float mag_field_strength        = 50.23F;
+    float mag_field_strength        = 47.37F;
 
     // Offsets applied to compensate for gyro zero-drift error for x/y/z
     float gyro_zero_offsets[3]      = { 0.0F, 0.0F, 0.0F };
@@ -126,9 +126,13 @@
       #ifdef DEBUG
          Serial.println("HELLO, end of initIMU() ");
       #endif
+
+      // Filter expects 70 samples per second
+      // Based on a Bluefruit M0 Feather ... rate should be adjuted for other MCUs
+      filter.begin(25);
     }
-  
-    imuData readIMU() {
+
+    imuData feedMeSeymour () {
       imuData_s data;
     
       sensors_event_t accel_event;
@@ -177,6 +181,17 @@
       data.gy = gy;
       data.gz = gz;
 
+      data.mx = mx;
+      data.my = my;
+      data.mz = mz;
+
+      return data;
+    }
+    
+    imuData readIMU() {
+      imuData_s data;
+      data = feedMeSeymour();
+      
       data.roll = filter.getRoll();
       data.pitch = filter.getPitch();
       data.ch = filter.getYaw();

@@ -161,6 +161,11 @@
   //#define ADAFRUIT_9DOF_L3GD20H_LSM303
   #define ADAFRUIT_9DOF_FXOS8700_FXAS21002
 
+  #ifdef DEBUG
+  unsigned const long REFRESH_INTERVAL = 500; //every 1/2 second
+  unsigned long lastRefreshTime = millis();
+  int updateCount = 0; //the number of feeds during this Interval
+  #endif
 #endif
 
 /* Variable initialization */
@@ -172,6 +177,7 @@ int index = 0;
 
 // Variable to hold an input character
 char chr;
+
 
 // Variable to hold the current single-character command
 char cmd;
@@ -443,6 +449,33 @@ void loop() {
       }
     }
   }
+
+  #ifdef USE_IMU
+  #ifdef DEBUG
+    //Run the IMU command in debug     
+    if (millis() >= lastRefreshTime + REFRESH_INTERVAL) 
+    {
+      lastRefreshTime += REFRESH_INTERVAL;
+      //cmd = 'i';
+      //argv1[0] = NULL;
+      //argv2[0] = NULL;
+      //runCommand();
+      //resetCommand();
+      imu_data = readIMU();
+      Serial.println(imu_data.ch);
+      //Serial.print("Seymour has fed Mahoney ");
+      //Serial.print(float(updateCount/.5));
+      //Serial.println(" times per second");
+      updateCount = 0;
+    }
+  #endif
+    //Feed Me Seymour, meaning, lets feed that Mahoney Filter as often as we can
+    feedMeSeymour();
+  #ifdef DEBUG
+    updateCount++;
+  #endif
+  #endif 
+
   
   // If we are using base control, run a PID calculation at the appropriate intervals
   #ifdef USE_BASE
