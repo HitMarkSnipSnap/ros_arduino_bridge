@@ -17,11 +17,11 @@
 #ifdef LEONARDO_XOR_ENC_COUNTER
   #define LEFT_ENC_PIN_A 10 //PB6
   #define LEFT_ENC_PIN_B 11 //PB7
-  #define LEFT_ENC_XOR   3  //INT0
+  #define LEFT_ENC_XOR   1 //INT3 //3  //INT0
   
   #define RIGHT_ENC_PIN_A 8 //PB4
   #define RIGHT_ENC_PIN_B 9 //PB5  
-  #define RIGHT_ENC_XOR   2 //INT1
+  #define RIGHT_ENC_XOR   0 //INT2 //2 //INT1
 #endif
 
 

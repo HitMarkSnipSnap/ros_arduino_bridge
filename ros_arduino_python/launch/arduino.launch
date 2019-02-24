@@ -1,5 +1,7 @@
 <launch>
+  <param name="robot_description" command="cat $(find rover5)/urdf/rover5.urdf" />
    <node name="arduino" pkg="ros_arduino_python" type="arduino_node.py" output="screen" clear_params="true">
       <rosparam file="$(find ros_arduino_python)/config/bradley_arduino_params.yaml" command="load" />
    </node>
+   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" /> 
 </launch>

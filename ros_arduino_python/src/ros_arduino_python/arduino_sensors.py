@@ -44,6 +44,7 @@ class MessageType:
     INT = 4
     BOOL = 5
     IMU = 6
+    MOTORS = 7
     
 class Sensor(object):
     def __init__(self, device, name, pin=None, rate=0, direction="input", frame_id="base_link", **kwargs):
@@ -149,7 +150,8 @@ class Sensor(object):
 
             # Compute the next polling time stamp
             self.t_next = now + self.t_delta
-    
+
+
 class AnalogSensor(Sensor):
     def __init__(self, *args, **kwargs):
         super(AnalogSensor, self).__init__(*args, **kwargs)

@@ -48,7 +48,7 @@
 //We will be using BASE controller for Bradely Robot
 #define USE_BASE      // Enable/disable the base controller code
 
-//#define USE_IMU       // Enable/disable use of an IMU
+#define USE_IMU       // Enable/disable use of an IMU
 
 /* Bradley DEBUG */
 //#define DEBUG //turns on debug messages, TURN THIS OFF IF RUNNING ROS
@@ -157,8 +157,15 @@
   #include "imu.h"
 
   // The only IMU currently supported is the Adafruit 9-DOF IMU
-  #define ADAFRUIT_9DOF
+  /* This is the OLDER Adafruit 9-DOF IMU Breakout - L3GD20H + LSM303 that is now DISCONTINUED */
+  //#define ADAFRUIT_9DOF_L3GD20H_LSM303
+  #define ADAFRUIT_9DOF_FXOS8700_FXAS21002
 
+  #ifdef DEBUG
+  unsigned const long REFRESH_INTERVAL = 500; //every 1/2 second
+  unsigned long lastRefreshTime = millis();
+  int updateCount = 0; //the number of feeds during this Interval
+  #endif
 #endif
 
 /* Variable initialization */
@@ -170,6 +177,7 @@ int index = 0;
 
 // Variable to hold an input character
 char chr;
+
 
 // Variable to hold the current single-character command
 char cmd;
@@ -319,6 +327,12 @@ int runCommand() {
     Serial.print(F(" "));
     Serial.println(readEncoder(RIGHT));
     break;
+   case READ_MOTORS:
+    motor_data = readMotorSettings();
+    Serial.print(motor_data.lm);
+    Serial.print(F(" "));
+    Serial.println(motor_data.rm);
+    break;   
    case RESET_ENCODERS:
     resetEncoders();
     resetPID();
@@ -359,6 +373,10 @@ int runCommand() {
 /* Setup function--runs once at startup. */
 void setup() {
   Serial.begin(BAUDRATE);
+#ifdef DEBUG
+while (!Serial) ;
+Serial.println("HELLO, start of SETUP() ");
+#endif
 
   // Initialize the motor controller if used */
   #ifdef USE_BASE
@@ -381,6 +399,9 @@ void setup() {
           stepDelay[i],
           servoInitPosition[i]);
     }
+  #endif
+  #ifdef DEBUG
+    Serial.println("HELLO, end of SETUP() ");
   #endif
 }
 
@@ -428,6 +449,33 @@ void loop() {
       }
     }
   }
+
+  #ifdef USE_IMU
+  #ifdef DEBUG
+    //Run the IMU command in debug     
+    if (millis() >= lastRefreshTime + REFRESH_INTERVAL) 
+    {
+      lastRefreshTime += REFRESH_INTERVAL;
+      //cmd = 'i';
+      //argv1[0] = NULL;
+      //argv2[0] = NULL;
+      //runCommand();
+      //resetCommand();
+      imu_data = readIMU();
+      Serial.println(imu_data.ch);
+      //Serial.print("Seymour has fed Mahoney ");
+      //Serial.print(float(updateCount/.5));
+      //Serial.println(" times per second");
+      updateCount = 0;
+    }
+  #endif
+    //Feed Me Seymour, meaning, lets feed that Mahoney Filter as often as we can
+    feedMeSeymour();
+  #ifdef DEBUG
+    updateCount++;
+  #endif
+  #endif 
+
   
   // If we are using base control, run a PID calculation at the appropriate intervals
   #ifdef USE_BASE

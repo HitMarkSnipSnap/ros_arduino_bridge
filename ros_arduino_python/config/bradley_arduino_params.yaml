@@ -20,10 +20,12 @@ base_controller_rate: 10
 base_frame: base_link
 
 # Are we also using an IMU for heading data
-use_imu_heading: False
+use_imu_heading: True
+#use_imu_heading: False
 
 # Are using Android Control for Joystic?
 use_android_joystick: True
+#use_android_joystick: False
 
 # Publish the odom->base_link transform?
 publish_odom_base_transform: True
@@ -36,11 +38,11 @@ gear_reduction: 1.0
 #motors_reversed: True
 
 # === PID parameters
-Kp: 10
-Kd: 12
-Ki: 0
+Kp: 30
+Kd: 12.5
+Ki: 0.95
 Ko: 50
-accel_limit: 1.0
+accel_limit: 10.0
 
 # == Odometry calibration correction factors
 odom_linear_scale_correction: 1.0
@@ -55,6 +57,7 @@ odom_angular_scale_correction: 1.0
 #	  * PololuMotorCurrent
 #	  * PhidgetsVoltage
 #	  * PhidgetsCurrent (20 Amp, DC)
+#	  * IMU rate use_for_odom
 
 
 sensors: {
@@ -62,7 +65,8 @@ sensors: {
   motor_current_right:  {pin: 1, type: Analog, rate: 10, direction: input},
   #ir_front_center:      {pin: 2, type: GP2D12, rate: 10},
   #sonar_front_center:   {pin: 5, type: Ping, rate: 10},
-  onboard_led:           {pin: 13, type: Digital, rate: 5, direction: output}
+  onboard_led:          {pin: 13, type: Digital, rate: 5, direction: output},
+  imu:                  {type: IMU, rate: 10, use_for_odom: True} 
 }
 
 # Joint name and configuration is an example only

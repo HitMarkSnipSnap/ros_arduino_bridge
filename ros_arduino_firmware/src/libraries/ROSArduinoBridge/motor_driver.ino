@@ -8,7 +8,12 @@
    *************************************************************/
 
 #ifdef USE_BASE
-   
+  motorData_s mData;
+
+  motorData_s readMotorSettings() {
+    return mData;
+  }
+ 
 #ifdef POLOLU_VNH5019
   /* Include the Pololu library */
   #include "DualVNH5019MotorShield.h"
@@ -91,7 +96,12 @@
 
 #elif defined ARDUINO_MOTOR_SHIELD_R3
   /* Wrap the motor driver initialization */
+   
   void initMotorController() {
+    #ifdef DEBUG
+      Serial.println("HELLO, start of initMotorController() ");
+    #endif
+
     /* If the brake function is enabled */
     #ifdef USE_ARDUINO_MOTOR_SHIELD_R3_BRAKE
       pinMode(LEFT_MOTOR_PIN_BRAKE, OUTPUT);   // Initiates Brake Channel A pin
@@ -107,7 +117,9 @@
     // Turn on the Motor Controller Board   
     pinMode(MOTOR_BOARD_POWER, OUTPUT); // Turns on the Motor Controller Board
     digitalWrite(MOTOR_BOARD_POWER, HIGH);
-    
+
+    mData.lm = 0;
+    mData.rm = 0;
   }
 
   /* Wrap the drive motor set speed function */
@@ -122,6 +134,7 @@
       #endif
 
       analogWrite(LEFT_MOTOR_PIN_SPEED, abs(spd));
+      mData.lm = spd;
     }
     else {
       if (spd < 0) digitalWrite(RIGHT_MOTOR_PIN_DIR, LOW);
@@ -133,6 +146,7 @@
       #endif
       
       analogWrite(RIGHT_MOTOR_PIN_SPEED, abs(spd));
+      mData.rm = spd;
     }
   }
 

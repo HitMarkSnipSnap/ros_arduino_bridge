@@ -1,0 +1,11 @@
+<robot name="arduino">
+  <!-- BASE_LINK -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="-0.1225 0.1555 0.074" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="/home/ubuntu/catkin_ws/src/rover5/meshes/rover5.stl"  scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+</robot>
